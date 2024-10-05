@@ -44,7 +44,7 @@
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
-
+int duty = 0;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -88,8 +88,12 @@ int main(void)
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
   MX_TIM2_Init();
+  MX_TIM11_Init();
+  MX_TIM3_Init();
   /* USER CODE BEGIN 2 */
-
+  HAL_TIM_PWM_Start(&htim2,TIM_CHANNEL_1);
+  HAL_TIM_PWM_Start(&htim3,TIM_CHANNEL_1);
+  HAL_TIM_PWM_Start(&htim11,TIM_CHANNEL_1);
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -99,6 +103,24 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
+    /*for (int i = 0; i < 100; i++)
+    {
+      __HAL_TIM_SET_COMPARE(&htim10,TIM_CHANNEL_1,i);
+      HAL_Delay(10);
+
+    }
+    
+    for (int i = 99; i >=0; i--)
+    {
+      __HAL_TIM_SET_COMPARE(&htim10,TIM_CHANNEL_1,i);
+      HAL_Delay(10);
+    }//以上是呼吸灯*/
+
+    
+    __HAL_TIM_SET_COMPARE(&htim3,TIM_CHANNEL_1,50);
+    HAL_Delay(2000);
+    __HAL_TIM_SET_COMPARE(&htim3,TIM_CHANNEL_1,250);
+    HAL_Delay(2000);//控制舵机
   }
   /* USER CODE END 3 */
 }
